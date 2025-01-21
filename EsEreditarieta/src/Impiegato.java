@@ -1,3 +1,4 @@
+import java.time.Duration;
 import java.time.LocalDate;
 
 public class Impiegato extends Persona {
@@ -37,10 +38,36 @@ public class Impiegato extends Persona {
         return dataAssunzione;
     }
 
+    //setters
+    public void setNrTesserino(String nrTesserino) {
+        if (dataAssunzione!=null) {
+            this.nrTesserino = nrTesserino;
+        }
+    } 
+
+    public void setStipendio(Integer stipendio) {
+        if (stipendio<=0) {
+            System.out.println("Stipendio non valido");
+            return;
+        }
+        Stipendio = stipendio;
+    }
+
+    public void setDataAssunzione(LocalDate dataAssunzione) {
+        if (dataAssunzione.isAfter(LocalDate.now())) {
+            if (Duration.between(getDataNascita(), dataAssunzione).toDays()<18*365) {
+                System.out.println("l'impiegato è minorenne!!!!");
+            }
+            System.out.println("Data assunzione non valida");
+            return;
+        }
+        this.dataAssunzione = dataAssunzione;
+    }
+
     @Override
     public String toString() {
         return "Impiegato [nrTesserino=" + nrTesserino + ", Stipendio=" + Stipendio + ", dataAssunzione="
                 + dataAssunzione + ", Nome=" + getNome() + ", Cognome=" + getCognome() + ", DataNascita="
                 + getDataNascita() + "]";
-    }    
+    }
 }
